@@ -15,8 +15,16 @@ namespace Clg_Dept_Student_APIs.Services
 
         public async Task<List<Student>> GetAll()
         {
-            var query = "select * from Student";
-            return await _dbContext.Students.FromSqlRaw<Student>(query).ToListAsync();
+            try
+            {
+                var query = "select * from Student";
+                return await _dbContext.Students.FromSqlRaw<Student>(query).ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Student GetStudentById(int id)

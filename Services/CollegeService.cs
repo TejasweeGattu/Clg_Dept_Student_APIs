@@ -15,13 +15,21 @@ namespace Clg_Dept_Student_APIs.Services
 
         public async Task<List<College>> GetAll()
         {
-            //var query = $"select * from [dbo].[College]";
-            //return await _dbContext.Colleges.FromSqlRaw<College>(query).ToListAsync();
-            var obj = await _dbContext.Colleges
-                .Include(c => c.Departments)
-                .ThenInclude(c => c.Students)
-                .OrderByDescending(x => x.Cid).AsNoTracking().ToListAsync();
-            return obj;
+            try
+            {
+                //var query = $"select * from [dbo].[College]";
+                //return await _dbContext.Colleges.FromSqlRaw<College>(query).ToListAsync();
+                var obj = await _dbContext.Colleges
+                    .Include(c => c.Departments)
+                    .ThenInclude(c => c.Students)
+                    .OrderByDescending(x => x.Cid).AsNoTracking().ToListAsync();
+                return obj;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
 
